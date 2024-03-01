@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pid=$(pgrep -f "To infinity and beyond")
+kill "$pid"

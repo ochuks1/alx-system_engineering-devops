@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pkill -f "To infinity and beyond"
