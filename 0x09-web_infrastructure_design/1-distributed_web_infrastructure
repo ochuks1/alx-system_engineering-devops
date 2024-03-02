@@ -1,1 +1,2 @@
 Explanation: In a Primary-Replica (Master-Slave) cluster, the primary node manages both read and write operations, ensuring data integrity. Replica nodes primarily serve read operations by replicating data changes from the primary, enhancing scalability and fault tolerance.
+URL: https://i.im.ge/2024/03/02/8uVc0P.Project-1-distributed-web-infrastructure.jpg
