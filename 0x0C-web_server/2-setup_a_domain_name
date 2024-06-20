@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Provide the domain name obtained from .TECH Domains
 echo ".tech"
