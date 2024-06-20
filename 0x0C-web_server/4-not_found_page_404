@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Create a backup of the default Nginx configuration file
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# Using sed to replace the error_page directive to customize 404 error page
+sed -i 's/# error_page 404 \/404.html;/\terror_page 404 \/404.html;\n\tlocation = \/404.html { root \/usr\/share\/nginx\/html; internal; }\n\tlocation \/404.html { return 404 "Ceci n'\''est pas une page"; }/' /etc/nginx/sites-available/default
+
+# Restart Nginx without using systemctl
+kill -HUP $(pgrep -f nginx)
+
+# Check if Nginx is running
+if ! pgrep -x "nginx" > /dev/null; then
+    echo "Nginx failed to start."
+    exit 1
+fi
+
+# Display success message
+echo "Nginx configured for custom 404 page successfully."
+
+# Cleanup
+rm /etc/nginx/sites-available/default.bak

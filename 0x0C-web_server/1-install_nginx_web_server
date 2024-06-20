@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Update apt package index and install nginx with '-y' flag for non-interactive installation
+apt-get update
+apt-get install -y nginx
+
+# Check if nginx is installed successfully
+if [ $? -ne 0 ]; then
+    echo "Nginx installation failed. Check apt logs."
+    exit 1
+fi
+
+# Create a custom index.html file with "Hello World!"
+echo "Hello World!" > /usr/share/nginx/html/index.html
+
+# Restart nginx without using systemctl
+kill -HUP $(pgrep -f nginx)
+
+# Check if nginx is running
+if ! pgrep -x "nginx" > /dev/null; then
+    echo "Nginx failed to start."
+    exit 1
+fi
+
+# Display success message
+echo "Nginx installed and configured successfully."
+
+# Cleanup apt cache
+apt-get clean

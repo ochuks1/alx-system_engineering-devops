@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Provide the domain name obtained from .TECH Domains
+echo ".tech"
+
+# Configure DNS records with an A entry to point to web-01 IP address
+# Replace IP_ADDRESS with the actual IP address of your web-01 server
+echo "Setting up DNS records for .tech to point to web-01 IP address"
+# Example command to set DNS record (replace with actual DNS provider's commands)
+# For .TECH Domains, this typically involves logging into their DNS management interface
+# and adding an A record with the server's IP address.

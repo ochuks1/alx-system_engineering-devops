@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Create a backup of the default Nginx configuration file
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# Using sed to replace the location block to achieve redirection
+sed -i '/location \/ {/a \    location /redirect_me { \n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \n    }' /etc/nginx/sites-available/default
+
+# Restart Nginx without using systemctl
+kill -HUP $(pgrep -f nginx)
+
+# Check if Nginx is running
+if ! pgrep -x "nginx" > /dev/null; then
+    echo "Nginx failed to start."
+    exit 1
+fi
+
+# Display success message
+echo "Nginx configured for redirection successfully."
+
+# Cleanup
+rm /etc/nginx/sites-available/default.bak
