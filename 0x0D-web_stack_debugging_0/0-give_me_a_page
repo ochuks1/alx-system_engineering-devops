@@ -1,4 +1,13 @@
-apt-get update
+#!/usr/bin/env bash
+
+# Update package list
+apt-get update -y
+
+# Install Apache if not installed
 apt-get install -y apache2
+
+# Create the index.html file with the desired content
 echo "Hello Holberton" > /var/www/html/index.html
+
+# Start the Apache service
 service apache2 start
