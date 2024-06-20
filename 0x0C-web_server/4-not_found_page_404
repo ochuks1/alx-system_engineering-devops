@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Create a backup of the default Nginx configuration file
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
