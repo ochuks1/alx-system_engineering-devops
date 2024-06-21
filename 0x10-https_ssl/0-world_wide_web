@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Script that displays information about subdomains of a given domain
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 domain [subdomain]"
+    exit 1
+fi
+
+domain="$1"
+subdomains=("www" "lb-01" "web-01" "web-02")
+
+if [ $# -eq 1 ]; then
+    for sub in "${subdomains[@]}"; do
+        dig_result=$(dig +short ${sub}.${domain})
+        record_type=$(dig +short ${sub}.${domain} | awk '{print $4}')
+        echo "The subdomain ${sub} is a ${record_type} record and points to ${dig_result}"
+    done
+elif [ $# -eq 2 ]; then
+    subdomain="$2"
+    if [[ " ${subdomains[@]} " =~ " ${subdomain} " ]]; then
+        dig_result=$(dig +short ${subdomain}.${domain})
+        record_type=$(dig +short ${subdomain}.${domain} | awk '{print $4}')
+        echo "The subdomain ${subdomain} is a ${record_type} record and points to ${dig_result}"
+    else
+        echo "Subdomain ${subdomain} is not in the list: ${subdomains[*]}"
+        exit 1
+    fi
+else
+    echo "Invalid number of arguments"
+    echo "Usage: $0 domain [subdomain]"
+    exit 1
+fi

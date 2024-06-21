@@ -1,0 +1,15 @@
+frontend http_frontend
+    bind *:80
+    mode http
+    http-request redirect location https://%[hdr(host)]%[capture.req.uri] if !{ ssl_fc }
+
+frontend www_frontend
+    bind *:443 ssl crt /etc/letsencrypt/live/www.holberton.online/fullchain.pem
+    mode http
+    default_backend www_backend
+
+backend www_backend
+    mode http
+    server web-01 34.198.248.145:80 check
+    server web-02 54.89.38.100:80 check
+
