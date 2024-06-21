@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-# Update package list
-apt-get update
+# Script to configure Nginx with custom HTTP header X-Served-By
 
-# Install Nginx
-apt-get install -y nginx
+# Update package list and install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Retrieve hostname
-hostname=$(hostname)
-
-# Configure custom response header in Nginx
-echo "add_header X-Served-By $hostname;" | tee -a /etc/nginx/nginx.conf
+# Configure custom HTTP header in Nginx
+sudo bash -c 'echo "
+server {
+    listen 80;
+    server_name _;
+    
+    location / {
+        add_header X-Served-By \$hostname;
+    }
+}" > /etc/nginx/sites-available/default'
 
 # Restart Nginx to apply changes
-service nginx restart
+sudo systemctl restart nginx
