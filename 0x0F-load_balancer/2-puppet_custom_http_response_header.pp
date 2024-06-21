@@ -1,3 +1,4 @@
+# Puppet manifest to configure Nginx with a custom HTTP header
 # Define the Nginx class
 class nginx_custom_header {
 
