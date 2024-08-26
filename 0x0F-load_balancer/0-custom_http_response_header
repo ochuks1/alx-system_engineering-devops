@@ -10,8 +10,8 @@ systemctl start nginx
 systemctl enable nginx
 
 # Get the hostname and configure Nginx to add the X-Served-By header
-HOSTNAME=$(ochuks)
-echo "add_header X-Served-By \"$ochuks\";" | tee /etc/nginx/conf.d/custom_header.conf
+HOSTNAME=$(web-01)
+echo "add_header X-Served-By \"web-01\";" | tee /etc/nginx/conf.d/custom_header.conf
 
 # Reload Nginx to apply changes
 systemctl reload nginx

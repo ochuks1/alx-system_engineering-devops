@@ -28,7 +28,7 @@ http {
     include /etc/nginx/conf.d/*.conf;
 
     # Custom Header Configuration
-    add_header X-Served-By <%= @ochuks %>;
+    add_header X-Served-By <%= @web-01 %>;
 
     server {
         listen 80;
