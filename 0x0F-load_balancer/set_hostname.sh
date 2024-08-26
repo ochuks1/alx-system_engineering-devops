@@ -2,17 +2,17 @@
 # This script sets the hostname and updates the /etc/hosts file.
 
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <hostname>"
+    echo "Usage: $0 <ochuks1>"
     exit 1
 fi
 
 NEW_HOSTNAME=$1
 
 # Set the hostname
-echo "$NEW_HOSTNAME" > /etc/hostname
-hostname "$NEW_HOSTNAME"
+echo "ochuks" > /etc/hostname
+hostname "ochuks"
 
 # Update /etc/hosts
-sed -i "/127.0.1.1/c\127.0.1.1\t$NEW_HOSTNAME" /etc/hosts
+sed -i "/127.0.1.1/c\127.0.1.1\tochuks" /etc/hosts
 
-echo "Hostname set to $NEW_HOSTNAME"
+echo "Hostname set to ochuks"
