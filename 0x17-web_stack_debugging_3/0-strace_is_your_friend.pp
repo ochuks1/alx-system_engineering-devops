@@ -1,27 +1,7 @@
-# Puppet Manifest to fix Apache 500 Internal Server Error
-# Description: This manifest ensures that the index.php file exists with correct permissions
-# and restarts the Apache service to resolve a 500 Internal Server Error issue.
+# Puppet Manifest to fix WordPress configuration
+# Description: This manifest fixes the WordPress configuration issue by replacing 'phpp' with 'php' in wp-settings.php
 
-# Ensure the index.php file exists with correct permissions
-file { '/var/www/html/index.php':
-  ensure  => file,
-  source  => 'puppet:///modules/my_module/index.php',
-  mode    => '0644',
-  owner   => 'www-data',
-  group   => 'www-data',
-}
-
-# Ensure Apache is running and configured properly
-service { 'apache2':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/var/www/html/index.php'], # Restart Apache if index.php changes
-}
-
-# Optionally, ensure the Apache configuration is reloaded if needed
-exec { 'reload_apache':
-  command => '/usr/sbin/apachectl graceful',
-  path    => '/usr/sbin:/usr/bin',
-  refreshonly => true,
-  subscribe  => File['/var/www/html/index.php'], # Reload Apache if index.php changes
+exec { 'fix-wordpress':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => ['/usr/local/bin', '/usr/bin', '/bin'],
 }
