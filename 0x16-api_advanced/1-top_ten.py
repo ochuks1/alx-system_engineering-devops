@@ -1,35 +1,37 @@
 #!/usr/bin/python3
 """
-Script to display the titles of hot posts from a specified Reddit subreddit.
+Script to print hot posts on a given Reddit subreddit.
 """
 
 import requests
 
-def top_ten(subreddit):
-    """Output the titles of the top 10 hot posts for a given subreddit."""
-    # Form the URL to fetch the hot posts in JSON format for the subreddit
-    api_url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
 
-    # Set up headers for the HTTP request, including a custom User-Agent
+def top_ten(subreddit):
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    # Construct the URL for the subreddit's hot posts in JSON format
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+
+    # Define headers for the HTTP request, including User-Agent
     headers = {
-        "User-Agent": "custom-user-agent:0x16.api.advanced:v1.0.0 (by /u/example_user)"
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/example_user)"
     }
 
-    # Parameters to limit the result to 10 hot posts
-    parameters = {
+    # Define parameters for the request, limiting the number of posts to 10
+    params = {
         "limit": 10
     }
 
-    # Execute the GET request to fetch the hot posts
-    response = requests.get(api_url, headers=headers, params=parameters, allow_redirects=False)
+    # Send a GET request to the subreddit's hot posts page
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
 
-    # Handle the case where the subreddit is not found (404 error)
+    # Check if the response status code indicates a not-found error (404)
     if response.status_code == 404:
         print("None")
         return
 
-    # Parse the JSON data and navigate to the 'data' section
-    data_section = response.json().get("data")
+    # Parse the JSON response and extract the 'data' section
+    results = response.json().get("data")
 
-    # Extract and print the titles of the 10 hottest posts
-    [print(post.get("data").get("title")) for post in data_section.get("children")]
+    # Print the titles of the top 10 hottest posts
+    [print(c.get("data").get("title")) for c in results.get("children")]
