@@ -2,13 +2,13 @@
 # Description: This manifest optimizes Nginx configuration to handle more requests
 # Adjusts the file descriptor limit for Nginx to manage increased traffic.
 
-# Update the file descriptor limit in Nginx's default configuration
-exec { 'adjust-nginx-ulimit':
+# Increase the file descriptor limit in the Nginx configuration
+exec { 'increase-nginx-ulimit':
   command => 'sed -i "s/15/4096/" /etc/default/nginx',
   path    => '/usr/local/bin:/bin',
 } ->
 
-# Restart the Nginx service to apply changes
+# Restart Nginx to apply the changes
 exec { 'restart-nginx':
   command => '/etc/init.d/nginx restart',
   path    => '/etc/init.d',
