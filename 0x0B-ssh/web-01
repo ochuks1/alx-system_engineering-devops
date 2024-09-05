@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Initialize SSH agent and load the private key
+eval "$(ssh-agent -s)"
+
+# Connect to the server using the SSH key
+ssh -i ~/.ssh/school ubuntu@100.26.49.181
