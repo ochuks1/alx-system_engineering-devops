@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
-# This script configures a brand new Ubuntu machine with Nginx and sets a custom HTTP header.
+# This script sets up Nginx and adds a custom HTTP header
 
-# Update the package list and install Nginx
-apt-get update
-apt-get install -y nginx
+# Install Nginx
+sudo apt update
+sudo apt install -y nginx
 
-# Ensure Nginx is running
-systemctl start nginx
-systemctl enable nginx
+# Create a configuration file for Nginx
+cat <<EOL | sudo tee /etc/nginx/sites-available/default
+server {
+    listen 80;
+    server_name BarbieCathy;
 
-# Get the hostname and configure Nginx to add the X-Served-By header
-HOSTNAME=$(web-01)
-echo "add_header X-Served-By \"web-01\";" | tee /etc/nginx/conf.d/custom_header.conf
+    location / {
+        add_header X-Served-By "487685-web-01"; # Change to 487685-web-02 for the second server
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOL
 
-# Reload Nginx to apply changes
-systemctl reload nginx
+# Restart Nginx to apply changes
+sudo systemctl restart nginx

@@ -26,3 +26,21 @@ class nginx_custom_header {
 
 # Apply the Nginx class
 include nginx_custom_header
+
+class { 'nginx':
+    manage_repo => true,
+}
+
+nginx::resource::server { 'BarbieCathy':
+    listen_port => 80,
+    server_name => 'BarbieCathy',
+}
+
+nginx::resource::location { 'root':
+    server => 'BarbieCathy',
+    location => '/',
+    ensure => present,
+    add_header => {
+        'X-Served-By' => '487685-web-01', # Change to 487685-web-02 for the second server
+    },
+}

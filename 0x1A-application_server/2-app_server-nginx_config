@@ -1,9 +1,19 @@
+<<<<<<< HEAD
+server {
+    listen 80;
+
+    # Server Name  
+    172.17.0.16; 
+
+    # Location to serve static files
+=======
 # /etc/nginx/sites-available/default
 
 server {
     listen 80;
     server_name <your_server_domain_or_IP>;
 
+>>>>>>> c6c5dcbfc3441ea591974817efe50c4b73cfd7da
     location /airbnb-onepage/ {
         proxy_pass http://localhost:5000;
         proxy_set_header Host $host;
