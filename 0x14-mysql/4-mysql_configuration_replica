@@ -1,6 +1,7 @@
 CHANGE MASTER TO
-    MASTER_HOST='your_primary_ip',
+    MASTER_HOST='172.17.0.10',
     MASTER_USER='replica_user',
-    MASTER_PASSWORD='your_password',
-    MASTER_LOG_FILE='mysql-bin.000009', -- replace with the File value from the primary server
-    MASTER_LOG_POS=107; -- replace with the Position value from the primary server
+    MASTER_PASSWORD='projectcorrection280hbtn',
+    MASTER_LOG_FILE='mysql-bin.000009',   
+    MASTER_LOG_POS=107;                   
+
