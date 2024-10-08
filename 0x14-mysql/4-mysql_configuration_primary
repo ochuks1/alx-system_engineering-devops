@@ -1,6 +1,4 @@
-CHANGE MASTER TO
-    MASTER_HOST='your_primary_ip',
-    MASTER_USER='replica_user',
-    MASTER_PASSWORD='your_password',
-    MASTER_LOG_FILE='mysql-bin.000009', -- replace with the File value from the primary server
-    MASTER_LOG_POS=107; -- replace with the Position value from the primary server
+[mysqld]
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = tyrell_corp
