@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Create a new dictionary to combine user data with their to-do lists
 import json
 import requests
 
