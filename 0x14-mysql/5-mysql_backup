@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Check if a password argument is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <mysql_password>"
+    exit 1
+fi
+
+# Assign the MySQL password from the argument
+MYSQL_PASSWORD=$1
+
+# Generate a timestamp for the backup file name
+TIMESTAMP=$(date +%d-%m-%Y)
+
+# Create a MySQL dump of all databases
+mysqldump -u root -p"$MYSQL_PASSWORD" --all-databases > backup.sql
+# Check if the dump was successful
+if [ $? -ne 0 ]; then
+    echo "MySQL dump failed!"
+    exit 1
+fi
+
+# Create a compressed archive of the backup
+tar -czvf "${TIMESTAMP}.tar.gz" backup.sql
+
+# Check if the tar command was successful
+if [ $? -ne 0 ]; then
+    echo "Failed to create tar.gz archive!"
+    exit 1
+fi
+
+# Clean up the uncompressed dump file
+rm backup.sql
+
+echo "Backup and compression completed successfully: ${TIMESTAMP}.tar.gz"
